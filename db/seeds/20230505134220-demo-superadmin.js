@@ -1,6 +1,6 @@
 'use strict';
 
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 
 const encryptPassword = async (password) => {
   try {
@@ -20,13 +20,13 @@ module.exports = {
       name: 'SuperAdmin Alpin',
       email: 'superadmin@mail.com',
       encryptedPassword: encryptedPassword,
-      userRole: 'superadmin',
+      role: 'superadmin',
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
   },
 
   async down(queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('Users', { userRole: 'superadmin' }, {});
+    return queryInterface.bulkDelete('Users', { role: 'superadmin' }, {});
   }
 };

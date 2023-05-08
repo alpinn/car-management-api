@@ -1,7 +1,7 @@
 const userRepository = require("../repositories/userRepository");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { use } = require("../../config/routes");
+// const { use } = require("../../config/routes");
 
 const encryptPassword = async (password) => {
   try {
@@ -30,20 +30,20 @@ module.exports = {
     const { name, email, password } = requestBody;
 
     const encryptedPassword = await encryptPassword(password);
-    return userRepository.create({ name, email, encryptedPassword, userRole: 'admin' });
+    return userRepository.create({ name, email, encryptedPassword, role: 'admin' });
   },
 
   async create(requestBody) {
     const { name, email, password } = requestBody;
 
     const encryptedPassword = await encryptPassword(password);
-    return userRepository.create({ name, email, encryptedPassword, userRole: 'member' });
+    return userRepository.create({ name, email, encryptedPassword, role: 'member' });
   },
 
   async login(requestBody) {
     const { email, password } = requestBody;
 
-    const user = await userRepository.findUserByEmail(email);
+    const user = await userRepository.getUserByEmail(email);
 
     if (!user) {
       return {
@@ -65,7 +65,7 @@ module.exports = {
 
     const token = createToken({
       id: user.id,
-      userRole: user.userRole
+      role: user.role
     })
 
     user.token = token;
@@ -79,29 +79,7 @@ module.exports = {
     }
   },
 
-  update(id, requestBody) {
-    return userRepository.update(id, requestBody);
-  },
-
   delete(id) {
-    return userRepository.delete(id);
-  },
-
-  async list() {
-    try {
-      const users = await userRepository.findAll();
-      const userCount = await userRepository.getTotalUser();
-
-      return {
-        data: users,
-        count: userCount,
-      };
-    } catch (err) {
-      throw err;
-    }
-  },
-
-  get(id) {
-    return postRepository.find(id);
+    return userRepository.deleteUser(id);
   },
 };

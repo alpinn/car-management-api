@@ -8,7 +8,7 @@ const {
   DB_USERNAME = "postgres",
   DB_PASSWORD = "ASDqwe123#",
   DB_HOST = "127.0.0.1",
-  DB_NAME = "contohChapter5",
+  DB_NAME = "ch5New",
 } = process.env;
 
 module.exports = {

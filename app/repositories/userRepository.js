@@ -1,37 +1,36 @@
 const { User } = require("../models");
 
+const getTotalUser = () => {
+  return User.count();
+};
+
+const getUsers = () => {
+  return User.findAll();
+};
+
+const getUser = (id) => {
+  return User.findByPk(id);
+};
+
+const getUserByEmail = (email) => {
+  return User.findOne({
+    where: { email },
+  });
+};
+
+const create = (createArgs) => {
+  return User.create(createArgs);
+};
+
+const deleteUser = (id) => {
+  return User.destroy(id);
+};
+
 module.exports = {
-  create(createArgs) {
-    return User.create(createArgs);
-  },
-
-  update(id, updateArgs) {
-    return User.update(updateArgs, {
-      where: {
-        id,
-      },
-    });
-  },
-
-  delete(id) {
-    return User.destroy(id);
-  },
-
-  find(id) {
-    return User.findByPk(id);
-  },
-
-  findAll() {
-    return User.findAll();
-  },
-
-  getTotalUser() {
-    return User.count();
-  },
-
-  findUserByEmail(email) {
-    return User.findOne({
-      where: { email }
-    })
-  }
+  getTotalUser,
+  getUsers,
+  getUser,
+  getUserByEmail,
+  create,
+  deleteUser,
 };

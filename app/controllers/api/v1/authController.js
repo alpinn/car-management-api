@@ -2,10 +2,32 @@
  * @file contains request handler of user resource
  * @author Fikri Rahmat Nurhidayat
  */
+const ApplicationError = require("../../../errors")
 const userService = require("../../../services/userService");
 const jwt = require("jsonwebtoken");
 
 module.exports = {
+
+  me (req, res) {
+    try {
+      const user = req.user; //from authorization userMiddleware
+      res.status(200).json({
+        status: "OK",
+        message: "Success",
+        data: {
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        },
+      });
+    } catch (err) {
+      res.status(err.statusCode || 404).json({
+        status: "FAIL",
+        message: err.message,
+      });
+    }
+  },
+
   registerAdmin(req, res) {
     userService
       .createAdmin(req.body)
@@ -90,11 +112,29 @@ module.exports = {
     }
   },
 
+  isAdmin(req, res, next) {
+    try {
+      const {role} = req.user;
+      if (
+        role === 'superadmin' ||
+        role === 'admin'
+      ) {
+        return next();
+      }
+      throw new ApplicationError(403, "You don't have permission to access!");
+    } catch (err) {
+      res.status(err.statusCode).json({
+        status: "FAIL",
+        message: err.message,
+      });
+    }
+  },
+
   isSuperAdmin(req, res, next) {
     try {
-      const {userRole} = req.user;
+      const {role} = req.user;
 
-      if(userRole === 'superadmin') return next();
+      if(role === 'superadmin') return next();
 
       res.status(403).json({
         message: "Have no access",
@@ -107,4 +147,5 @@ module.exports = {
       });
     }
   }
+  
 };
