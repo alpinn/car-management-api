@@ -34,7 +34,7 @@ npm run db:migrate
 5. Using seeder
 
 ```bash
-npm run db:seed:
+npm run db:seed
 ```
 
 6. Running Project on development
