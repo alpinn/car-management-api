@@ -1,24 +1,44 @@
-# Binar: Express.js
+# Challenge Chapter 5 - Car Management API
 
-Repository ini ditujukan sebagai boilerplate dalam membuat sebuah HTTP Server menggunakan Express.js
-Repository ini menggunakan Service Repository Pattern, yang artinya di dalam repository ini terdapat modul model, controller, service, dan repository.
+This project is about implemetation of Design Pattern with Service Repository, Authentication with JWT Token and API documentation with standarized Open API which used Swagger UI.
 
-## Getting Started
+## Super Admin Data
 
-Untuk mulai membuat sebuah implementasi dari HTTP Server, mulainya menginspeksi file [`app/index.js`](./app/index.js), dan lihatlah salah satu contoh `controller` yang ada di [`app/controllers/mainController.js`](./app/controllers/mainController.js)
+- email : superadmin@gmail.com
+- password : superadmin123
 
-Lalu untuk menjalankan development server, kalian tinggal jalanin salah satu script di package.json, yang namanya `develop`.
+## Accessing API Documentation
 
-```sh
-yarn develop
+- http://{{host}}/api/v1/docs
+
+## How To Run
+
+1. Install Library
+
+```bash
+npm i
 ```
 
-## Database Management
+3. Create Database
 
-Di dalam repository ini sudah terdapat beberapa script yang dapat digunakan dalam memanage database, yaitu:
+```bash
+npm run db:create
+```
 
-- `yarn db:create` digunakan untuk membuat database
-- `yarn db:drop` digunakan untuk menghapus database
-- `yarn db:migrate` digunakan untuk menjalankan database migration
-- `yarn db:seed` digunakan untuk melakukan seeding
-- `yarn db:rollback` digunakan untuk membatalkan migrasi terakhir
+4. Migrating the model
+
+```bash
+npm run db:migrate
+```
+
+5. Using seeder
+
+```bash
+npm run db:seed:
+```
+
+6. Running Project on development
+
+```bash
+npm run develop
+```
